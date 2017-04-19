@@ -1,0 +1,757 @@
+#INCLUDE "INCLUDE\VFX.H"
+SET SYSMENU AUTOMATIC
+SET SYSMENU TO 
+
+IF TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("FILE")
+
+
+lcMEN_KLBALTF=IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTF, MEN_KLBALTF)
+lcMEN_KLBALTF=[ALT]+SUBSTR(lcMEN_KLBALTF,AT([+],lcMEN_KLBALTF))
+Define Pad FILE Of _MSYSMENU PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMFILE,MEN_PRMFILE) FONT [Arial],8 KEY &lcMEN_KLBALTF., IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTF, MEN_KLBALTF) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBCREATESOPENSPRINTSDATAORQUITSTHISPROGRAM,MEN_STBCREATESOPENSPRINTSDATAORQUITSTHISPROGRAM)
+
+lcMEN_KLBALTF=IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTF, MEN_KLBALTF)
+lcMEN_KLBALTF=[ALT]+SUBSTR(lcMEN_KLBALTF,AT([+],lcMEN_KLBALTF))
+Define Popup FILE FONT [Arial],8 KEY &lcMEN_KLBALTF., IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTF, MEN_KLBALTF) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBCREATESOPENSPRINTSDATAORQUITSTHISPROGRAM,MEN_STBCREATESOPENSPRINTSDATAORQUITSTHISPROGRAM) MARGIN RELATIVE SHORTCUT
+ON PAD FILE OF _MSYSMENU ACTIVATE POPUP FILE
+ENDIF
+IF POPUP('FILE') AND TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("FILE_OPEN")
+
+Define Bar 1 Of FILE PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMOPEN,MEN_PRMOPEN) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_OPEN')) FONT [Arial],8 KEY CTRL+O, IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBCTRLO, MEN_KLBCTRLO) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBOPENSAFORM,MEN_STBOPENSAFORM) PICTURE '..\BITMAP\TOOLBAR\OPEN.BMP'
+On Selection Bar 1 Of FILE goProgram.RunForm('VFXOPEN')
+ENDIF
+IF POPUP('FILE') AND TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("FILE_CLOSE")
+
+Define Bar 2 Of FILE PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMCLOSE,MEN_PRMCLOSE) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_CLOSE')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBCLOSESTHECURRENTFORM,MEN_STBCLOSESTHECURRENTFORM) PICTURE '..\BITMAP\TOOLBAR\CLOSE.BMP'
+On Selection Bar 2 Of FILE ; 
+DO _4L70X81DW IN vfxmenu.prg
+ENDIF
+IF POPUP('FILE')
+
+Define Bar 3 Of FILE PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRM,MEN_PRM) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBPRINT,MEN_STBPRINT)
+ENDIF
+IF POPUP('FILE') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("FILE_PAGESETUP"))
+
+Define Bar 4 Of FILE PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMPAGESETUP,MEN_PRMPAGESETUP) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_PAGESETUP')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBCHANGESTHEPAGELAYOUTANDPRINTERSETTINGS,MEN_STBCHANGESTHEPAGELAYOUTANDPRINTERSETTINGS) PICTRES _mfi_pgset
+On Selection Bar 4 Of FILE ; 
+DO _4L70X81DX IN vfxmenu.prg
+ENDIF
+IF POPUP('FILE') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("FILE_PRINT")
+
+Define Bar 5 Of FILE PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMPRINT,MEN_PRMPRINT) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_PRINT')) FONT [Arial],8 KEY CTRL+P, IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBCTRLP, MEN_KLBCTRLP) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBPRINTSAREPORTORALIST,MEN_STBPRINTSAREPORTORALIST) PICTURE '..\BITMAP\TOOLBAR\PRINT.BMP'
+On Selection Bar 5 Of FILE ; 
+DO _4L70X81DY IN vfxmenu.prg
+ENDIF
+IF POPUP('FILE') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("FILE_PRINT"))
+
+Define Bar 6 Of FILE PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMPREVIEW,MEN_PRMPREVIEW) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_PRINT')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBDISPLAYSFULLPAGESASTHEYWILLBEPRINTED,MEN_STBDISPLAYSFULLPAGESASTHEYWILLBEPRINTED) PICTURE '..\BITMAP\TOOLBAR\PREVIEW.BMP'
+On Selection Bar 6 Of FILE ; 
+DO _4L70X81DZ IN vfxmenu.prg
+ENDIF
+IF POPUP('FILE') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("FILE_EMAIL") AND goProgram.IsMenuItemAllowed("FILE_PRINT"))
+	
+Define Bar 7 Of FILE PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMEMAIL,MEN_PRMEMAIL) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_PRINT')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBSENDSAREPORTORALISTASEMAILATTACHMENT,MEN_STBSENDSAREPORTORALISTASEMAILATTACHMENT) PICTURE '..\BITMAP\TOOLBAR\EMAIL.BMP'
+Define Popup email FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBSENDSAREPORTORALISTASEMAILATTACHMENT,MEN_STBSENDSAREPORTORALISTASEMAILATTACHMENT) MARGIN RELATIVE SHORTCUT
+ON BAR 7 Of FILE ACTIVATE Popup email
+ENDIF
+IF POPUP('EMAIL') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("FILE_EMAIL") AND goProgram.IsMenuItemAllowed("FILE_PRINT"))
+
+Define Bar 1 Of email PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMATTACHPDF,MEN_PRMATTACHPDF) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_PRINT')) FONT [Arial],8 PICTURE '..\BITMAP\TOOLBAR\PDF.BMP'
+On Selection Bar 1 Of email ; 
+DO _4L70X81E0 IN vfxmenu.prg
+ENDIF
+IF POPUP('EMAIL') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("FILE_EMAIL") AND goProgram.IsMenuItemAllowed("FILE_PRINT"))
+
+Define Bar 2 Of email PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMATTACHHTML,MEN_PRMATTACHHTML) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_PRINT')) FONT [Arial],8
+On Selection Bar 2 Of email ; 
+DO _4L70X81E1 IN vfxmenu.prg
+ENDIF
+IF POPUP('EMAIL') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("FILE_EMAIL") AND goProgram.IsMenuItemAllowed("FILE_PRINT"))
+
+Define Bar 3 Of email PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMATTACHXML,MEN_PRMATTACHXML) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_PRINT')) FONT [Arial],8
+On Selection Bar 3 Of email ; 
+DO _4L70X81E2 IN vfxmenu.prg
+ENDIF
+IF POPUP('EMAIL') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("FILE_EMAIL") AND goProgram.IsMenuItemAllowed("FILE_PRINT"))
+
+Define Bar 4 Of email PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMATTACHTIFF,MEN_PRMATTACHTIFF) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_PRINT')) FONT [Arial],8
+On Selection Bar 4 Of email ; 
+DO _4L70X81E3 IN vfxmenu.prg
+ENDIF
+IF POPUP('EMAIL') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("FILE_EMAIL") AND goProgram.IsMenuItemAllowed("FILE_PRINT"))
+
+Define Bar 5 Of email PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMATTACHBMP,MEN_PRMATTACHBMP) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_PRINT')) FONT [Arial],8
+On Selection Bar 5 Of email ; 
+DO _4L70X81E4 IN vfxmenu.prg
+ENDIF
+IF POPUP('EMAIL') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("FILE_EMAIL") AND goProgram.IsMenuItemAllowed("FILE_PRINT"))
+
+Define Bar 6 Of email PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMATTACHCSV,MEN_PRMATTACHCSV) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_PRINT')) FONT [Arial],8
+On Selection Bar 6 Of email ; 
+DO _4L70X81E5 IN vfxmenu.prg
+ENDIF
+IF POPUP('EMAIL') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("FILE_EMAIL") AND goProgram.IsMenuItemAllowed("FILE_PRINT"))
+
+Define Bar 7 Of email PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMATTACHEXCEL,MEN_PRMATTACHEXCEL) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_PRINT')) FONT [Arial],8
+On Selection Bar 7 Of email ; 
+DO _4L70X81E6 IN vfxmenu.prg
+ENDIF
+IF POPUP('EMAIL') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("FILE_EMAIL") AND goProgram.IsMenuItemAllowed("FILE_PRINT"))
+
+Define Bar 8 Of email PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMATTACHDBF,MEN_PRMATTACHDBF) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_PRINT')) FONT [Arial],8
+On Selection Bar 8 Of email ; 
+DO _4L70X81E7 IN vfxmenu.prg
+ENDIF
+IF POPUP('FILE') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("FILE_PRINT"))
+
+Define Bar 8 Of FILE PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMFAX,MEN_PRMFAX) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_PRINT')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBSENDSAREPORTORALISTASFAX,MEN_STBSENDSAREPORTORALISTASFAX) PICTURE '..\BITMAP\TOOLBAR\FAX.BMP'
+On Selection Bar 8 Of FILE ; 
+DO _4L70X81E8 IN vfxmenu.prg
+ENDIF
+IF POPUP('FILE') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("EDIT_SAVE") AND goProgram.IsMenuItemAllowed("FILE_PRINT"))
+	
+Define Bar 9 Of FILE PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMSAVEAS,MEN_PRMSAVEAS) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_PRINT')) FONT [Arial],8
+Define Popup MEN_SAVEAS FONT [Arial],8 MARGIN RELATIVE SHORTCUT
+ON BAR 9 Of FILE ACTIVATE Popup MEN_SAVEAS
+ENDIF
+IF POPUP('MEN_SAVEAS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("EDIT_SAVE") AND goProgram.IsMenuItemAllowed("FILE_PRINT"))
+
+Define Bar 1 Of MEN_SAVEAS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMPDF,MEN_PRMPDF) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_PRINT')) FONT [Arial],8 PICTURE '..\BITMAP\TOOLBAR\PDF.BMP'
+On Selection Bar 1 Of MEN_SAVEAS ; 
+DO _4L70X81E9 IN vfxmenu.prg
+ENDIF
+IF POPUP('MEN_SAVEAS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("EDIT_SAVE") AND goProgram.IsMenuItemAllowed("FILE_PRINT"))
+
+Define Bar 2 Of MEN_SAVEAS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMHTML,MEN_PRMHTML) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_PRINT')) FONT [Arial],8
+On Selection Bar 2 Of MEN_SAVEAS ; 
+DO _4L70X81EA IN vfxmenu.prg
+ENDIF
+IF POPUP('MEN_SAVEAS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("EDIT_SAVE") AND goProgram.IsMenuItemAllowed("FILE_PRINT"))
+
+Define Bar 3 Of MEN_SAVEAS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMXML,MEN_PRMXML) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_PRINT')) FONT [Arial],8
+On Selection Bar 3 Of MEN_SAVEAS ; 
+DO _4L70X81EB IN vfxmenu.prg
+ENDIF
+IF POPUP('MEN_SAVEAS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("EDIT_SAVE") AND goProgram.IsMenuItemAllowed("FILE_PRINT"))
+
+Define Bar 4 Of MEN_SAVEAS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMTIFF,MEN_PRMTIFF) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_PRINT')) FONT [Arial],8
+On Selection Bar 4 Of MEN_SAVEAS ; 
+DO _4L70X81EC IN vfxmenu.prg
+ENDIF
+IF POPUP('MEN_SAVEAS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("EDIT_SAVE") AND goProgram.IsMenuItemAllowed("FILE_PRINT"))
+
+Define Bar 5 Of MEN_SAVEAS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMBMP,MEN_PRMBMP) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_PRINT')) FONT [Arial],8
+On Selection Bar 5 Of MEN_SAVEAS ; 
+DO _4L70X81ED IN vfxmenu.prg
+ENDIF
+IF POPUP('FILE') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("EDIT_SAVE"))
+	
+Define Bar 10 Of FILE PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMEXPORTTO,MEN_PRMEXPORTTO) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_EXPORT')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBEXPORTTO,MEN_STBEXPORTTO)
+Define Popup MEN_EXPORTTO FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBEXPORTTO,MEN_STBEXPORTTO) MARGIN RELATIVE SHORTCUT
+ON BAR 10 Of FILE ACTIVATE Popup MEN_EXPORTTO
+ENDIF
+IF POPUP('MEN_EXPORTTO') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("EDIT_SAVE"))
+
+Define Bar 1 Of MEN_EXPORTTO PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMCSV,MEN_PRMCSV) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_EXPORT')) FONT [Arial],8
+On Selection Bar 1 Of MEN_EXPORTTO ; 
+DO _4L70X81EE IN vfxmenu.prg
+ENDIF
+IF POPUP('MEN_EXPORTTO') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("EDIT_SAVE"))
+
+Define Bar 2 Of MEN_EXPORTTO PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMEXCEL,MEN_PRMEXCEL) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_EXPORT')) FONT [Arial],8
+On Selection Bar 2 Of MEN_EXPORTTO ; 
+DO _4L70X81EF IN vfxmenu.prg
+ENDIF
+IF POPUP('MEN_EXPORTTO') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("EDIT_SAVE") AND goProgram.IsMenuItemAllowed("FILE_PRINT"))
+
+Define Bar 3 Of MEN_EXPORTTO PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMXML,MEN_PRMXML) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_EXPORT')) FONT [Arial],8
+On Selection Bar 3 Of MEN_EXPORTTO ; 
+DO _4L70X81EG IN vfxmenu.prg
+ENDIF
+IF POPUP('MEN_EXPORTTO') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("EDIT_SAVE"))
+
+Define Bar 4 Of MEN_EXPORTTO PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMDBF,MEN_PRMDBF) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_EXPORT')) FONT [Arial],8
+On Selection Bar 4 Of MEN_EXPORTTO ; 
+DO _4L70X81EH IN vfxmenu.prg
+ENDIF
+IF POPUP('FILE') AND TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("FILE_EXIT")
+
+Define Bar 11 Of FILE PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRM,MEN_PRM) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBEXIT,MEN_STBEXIT)
+ENDIF
+IF POPUP('FILE') AND TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("FILE_EXIT")
+
+
+lcMEN_KLBALTF4=IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTF4, MEN_KLBALTF4)
+lcMEN_KLBALTF4=[ALT]+SUBSTR(lcMEN_KLBALTF4,AT([+],lcMEN_KLBALTF4))
+Define Bar 12 Of FILE PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMEXIT,MEN_PRMEXIT) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FILE_EXIT')) FONT [Arial],8 KEY &lcMEN_KLBALTF4., IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTF4, MEN_KLBALTF4) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBEXITTHISPROGRAM,MEN_STBEXITTHISPROGRAM) PICTRES _mfi_quit
+On Selection Bar 12 Of FILE goProgram.OnQuit()
+ENDIF
+IF TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("EDIT")
+
+
+lcMEN_KLBALTE=IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTE, MEN_KLBALTE)
+lcMEN_KLBALTE=[ALT]+SUBSTR(lcMEN_KLBALTE,AT([+],lcMEN_KLBALTE))
+Define Pad EDIT Of _MSYSMENU PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMEDIT,MEN_PRMEDIT) FONT [Arial],8 KEY &lcMEN_KLBALTE., IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTE, MEN_KLBALTE) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBEDITDATAINTHECURRENTFORM,MEN_STBEDITDATAINTHECURRENTFORM)
+
+lcMEN_KLBALTE=IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTE, MEN_KLBALTE)
+lcMEN_KLBALTE=[ALT]+SUBSTR(lcMEN_KLBALTE,AT([+],lcMEN_KLBALTE))
+Define Popup EDIT FONT [Arial],8 KEY &lcMEN_KLBALTE., IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTE, MEN_KLBALTE) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBEDITDATAINTHECURRENTFORM,MEN_STBEDITDATAINTHECURRENTFORM) MARGIN RELATIVE SHORTCUT
+ON PAD EDIT OF _MSYSMENU ACTIVATE POPUP EDIT
+ENDIF
+IF POPUP('EDIT') AND TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("EDIT_UNDO")
+
+Define Bar 1 Of EDIT PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMUNDO,MEN_PRMUNDO) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('EDIT_RESTORE')) FONT [Arial],8 KEY CTRL+Z, IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBCTRLZ, MEN_KLBCTRLZ) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBUNDOESTHECHANGESINTHECURRENTFORM,MEN_STBUNDOESTHECHANGESINTHECURRENTFORM) PICTURE '..\BITMAP\TOOLBAR\UNDO.BMP'
+On Selection Bar 1 Of EDIT _screen.ActiveForm.OnUndo()
+ENDIF
+IF POPUP('EDIT') AND TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("EDIT_SAVE")
+
+Define Bar 2 Of EDIT PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMSAVE,MEN_PRMSAVE) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('EDIT_SAVE')) FONT [Arial],8 KEY CTRL+S, IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBCTRLS, MEN_KLBCTRLS) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBSAVESTHECHANGESINTHECURRENTFORM,MEN_STBSAVESTHECHANGESINTHECURRENTFORM) PICTURE '..\BITMAP\TOOLBAR\SAVE.BMP'
+On Selection Bar 2 Of EDIT _screen.ActiveForm.OnSave()
+ENDIF
+IF POPUP('EDIT')
+
+Define Bar 3 Of EDIT PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRM,MEN_PRM) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBCLIPBOARD,MEN_STBCLIPBOARD)
+ENDIF
+IF POPUP('EDIT') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("EDIT_CUT")
+
+Define Bar _med_cut Of EDIT PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMCUT,MEN_PRMCUT) FONT [Arial],8 KEY CTRL+X, IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBCTRLX, MEN_KLBCTRLX) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBREMOVESTHESELECTIONANDPLACESITONTOTHECLIPBOARD,MEN_STBREMOVESTHESELECTIONANDPLACESITONTOTHECLIPBOARD) PICTURE '..\BITMAP\TOOLBAR\CUT.BMP'
+ENDIF
+IF POPUP('EDIT') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("EDIT_COPY")
+
+Define Bar _med_copy Of EDIT PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMCOPY,MEN_PRMCOPY) FONT [Arial],8 KEY CTRL+C, IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBCTRLC, MEN_KLBCTRLC) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBCOPIESTHESELECTIONONTOTHECLIPBOARD,MEN_STBCOPIESTHESELECTIONONTOTHECLIPBOARD) PICTURE '..\BITMAP\TOOLBAR\COPY.BMP'
+ENDIF
+IF POPUP('EDIT') AND TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("EDIT_PASTE")
+
+Define Bar _med_paste Of EDIT PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMPASTE,MEN_PRMPASTE) FONT [Arial],8 KEY CTRL+V, IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBCTRLV, MEN_KLBCTRLV) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBPASTESTHECONTENTSOFTHECLIPBOARD,MEN_STBPASTESTHECONTENTSOFTHECLIPBOARD) PICTURE '..\BITMAP\TOOLBAR\PASTE.BMP'
+ENDIF
+IF POPUP('EDIT')
+
+Define Bar 7 Of EDIT PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRM,MEN_PRM) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBEDIT,MEN_STBEDIT)
+ENDIF
+IF POPUP('EDIT') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("EDIT_EDIT")
+
+Define Bar 8 Of EDIT PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMEDIT,MEN_PRMEDIT) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('EDIT_EDIT')) FONT [Arial],8 KEY CTRL+E, IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBCTRLE, MEN_KLBCTRLE) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBEDITDATAINTHECURRENTFORM,MEN_STBEDITDATAINTHECURRENTFORM) PICTURE '..\BITMAP\TOOLBAR\EDIT.BMP'
+On Selection Bar 8 Of EDIT _screen.ActiveForm.OnEdit()
+ENDIF
+IF POPUP('EDIT') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("EDIT_NEW")
+
+Define Bar 9 Of EDIT PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMNEW,MEN_PRMNEW) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('EDIT_NEW')) FONT [Arial],8 KEY CTRL+N, IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBCTRLN, MEN_KLBCTRLN) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBCREATESANEWRECORD,MEN_STBCREATESANEWRECORD) PICTURE '..\BITMAP\TOOLBAR\NEW.BMP'
+On Selection Bar 9 Of EDIT _screen.ActiveForm.OnInsert()
+ENDIF
+IF POPUP('EDIT') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("EDIT_COPYRECORD")
+
+Define Bar 10 Of EDIT PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMCOPYRECORD,MEN_PRMCOPYRECORD) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('EDIT_RECORDCOPY')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBCOPIESTHECURRENTRECORD,MEN_STBCOPIESTHECURRENTRECORD) PICTURE '..\BITMAP\TOOLBAR\COPYRECO.BMP'
+On Selection Bar 10 Of EDIT _screen.ActiveForm.OnCopy()
+ENDIF
+IF POPUP('EDIT') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("EDIT_DELETE")
+
+Define Bar 11 Of EDIT PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMDELETE,MEN_PRMDELETE) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('EDIT_DELETE')) FONT [Arial],8 KEY CTRL+D, IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBCTRLD, MEN_KLBCTRLD) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBDELETESTHECURRENTRECORD,MEN_STBDELETESTHECURRENTRECORD) PICTURE '..\BITMAP\TOOLBAR\DELETE.BMP'
+On Selection Bar 11 Of EDIT _screen.ActiveForm.OnDelete()
+ENDIF
+IF POPUP('EDIT') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("EDIT_REQUERY") OR goProgram.IsMenuItemAllowed("EDIT_FIND"))
+
+Define Bar 12 Of EDIT PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRM,MEN_PRM) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBDATA,MEN_STBDATA)
+ENDIF
+IF POPUP('EDIT') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("EDIT_REQUERY")
+
+Define Bar 13 Of EDIT PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMREQUERY,MEN_PRMREQUERY) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('EDIT_REQUERY')) FONT [Arial],8 KEY F5, IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBF5, MEN_KLBF5) PICTURE '..\BITMAP\TOOLBAR\REQUERY.BMP'
+On Selection Bar 13 Of EDIT ; 
+DO _4L70X81EI IN vfxmenu.prg
+ENDIF
+IF POPUP('EDIT') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("EDIT_FIND")
+
+Define Bar 14 Of EDIT PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMFIND,MEN_PRMFIND) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('EDIT_FIND')) FONT [Arial],8 KEY CTRL+F, IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBCTRLF, MEN_KLBCTRLF) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBSEARCHESFORSPECIFIEDTEXT,MEN_STBSEARCHESFORSPECIFIEDTEXT) PICTURE '..\BITMAP\TOOLBAR\FIND.BMP'
+On Selection Bar 14 Of EDIT _screen.ActiveForm.OnSearch()
+ENDIF
+IF POPUP('EDIT') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("EDIT_OTHER")
+
+Define Bar 15 Of EDIT PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRM,MEN_PRM) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBOTHER,MEN_STBOTHER)
+ENDIF
+IF POPUP('EDIT') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("EDIT_OTHER")
+
+Define Bar 16 Of EDIT PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMOTHER,MEN_PRMOTHER) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('EDIT_MORE')) FONT [Arial],8 KEY F6, IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBF6, MEN_KLBF6) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBOTHERFUNCTIONS,MEN_STBOTHERFUNCTIONS) PICTURE '..\BITMAP\TOOLBAR\MORE.BMP'
+On Selection Bar 16 Of EDIT _screen.ActiveForm.OnMore()
+ENDIF
+IF TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("VIEW")
+
+
+lcMEN_KLBALTV=IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTV, MEN_KLBALTV)
+lcMEN_KLBALTV=[ALT]+SUBSTR(lcMEN_KLBALTV,AT([+],lcMEN_KLBALTV))
+Define Pad View Of _MSYSMENU PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMVIEW,MEN_PRMVIEW) FONT [Arial],8 KEY &lcMEN_KLBALTV., IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTV, MEN_KLBALTV) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBCHANGESDISPLAYOPTIONSORMOVESTHERECORDPOINTER,MEN_STBCHANGESDISPLAYOPTIONSORMOVESTHERECORDPOINTER)
+
+lcMEN_KLBALTV=IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTV, MEN_KLBALTV)
+lcMEN_KLBALTV=[ALT]+SUBSTR(lcMEN_KLBALTV,AT([+],lcMEN_KLBALTV))
+Define Popup View FONT [Arial],8 KEY &lcMEN_KLBALTV., IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTV, MEN_KLBALTV) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBCHANGESDISPLAYOPTIONSORMOVESTHERECORDPOINTER,MEN_STBCHANGESDISPLAYOPTIONSORMOVESTHERECORDPOINTER) MARGIN RELATIVE SHORTCUT
+ON PAD View OF _MSYSMENU ACTIVATE POPUP View
+ENDIF
+IF POPUP('VIEW') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("VIEW_TOOLBARS")
+
+Define Bar 1 Of View PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMTOOLBARS,MEN_PRMTOOLBARS) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('VIEW_TOOLBARS')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBSHOWSORHIDESTOOLBARS,MEN_STBSHOWSORHIDESTOOLBARS) PICTURE '..\BITMAP\TOOLBAR\TOOLBARS.BMP'
+On Selection Bar 1 Of View goProgram.RunForm('VFXTBAR')
+ENDIF
+IF POPUP('VIEW') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("VIEW_NEXTPAGE") OR goProgram.IsMenuItemAllowed("VIEW_PREVPAGE"))
+
+Define Bar 2 Of View PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRM,MEN_PRM) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBPAGES,MEN_STBPAGES)
+ENDIF
+IF POPUP('VIEW') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("VIEW_NEXTPAGE")
+
+Define Bar 3 Of View PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMNEXTPAGE,MEN_PRMNEXTPAGE) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('VIEW_NEXTPAGE')) FONT [Arial],8 KEY CTRL+PGDN, IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBCTRLPGDN, MEN_KLBCTRLPGDN) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBSWITCHESTOTHENEXTPAGEONTHECURRENTFORM,MEN_STBSWITCHESTOTHENEXTPAGEONTHECURRENTFORM) PICTURE '..\BITMAP\TOOLBAR\NEXTPAGE.BMP'
+On Selection Bar 3 Of View _screen.activeForm.OnNextPage()
+ENDIF
+IF POPUP('VIEW') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("VIEW_PREVPAGE")
+
+Define Bar 4 Of View PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMPREVIOUSPAGE,MEN_PRMPREVIOUSPAGE) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('VIEW_PREVPAGE')) FONT [Arial],8 KEY CTRL+PGUP, IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBCTRLPGUP, MEN_KLBCTRLPGUP) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBSWITCHESTOTHEPREVIOUSPAGEONTHECURRENTFORM,MEN_STBSWITCHESTOTHEPREVIOUSPAGEONTHECURRENTFORM) PICTURE '..\BITMAP\TOOLBAR\PREVPAGE.BMP'
+On Selection Bar 4 Of View _screen.activeForm.OnPrevPage()
+ENDIF
+IF POPUP('VIEW')
+
+Define Bar 5 Of View PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRM,MEN_PRM) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBRECORDS,MEN_STBRECORDS)
+ENDIF
+IF POPUP('VIEW') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("VIEW_TOP")
+
+Define Bar 6 Of View PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMTOP,MEN_PRMTOP) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('EDIT_TOP')) FONT [Arial],8 KEY CTRL+HOME, IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBCTRLHOME, MEN_KLBCTRLHOME) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBGOTOTHEFIRSTRECORD,MEN_STBGOTOTHEFIRSTRECORD) PICTURE '..\BITMAP\TOOLBAR\TOP.BMP'
+On Selection Bar 6 Of View _screen.activeForm.OnTop()
+ENDIF
+IF POPUP('VIEW') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("VIEW_PREV")
+
+Define Bar 7 Of View PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMPREVIOUS,MEN_PRMPREVIOUS) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('EDIT_PREV')) FONT [Arial],8 KEY CTRL+UPARROW, IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBCTRLUPARROW, MEN_KLBCTRLUPARROW) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBGOTOTHEPREVIOUSRECORD,MEN_STBGOTOTHEPREVIOUSRECORD) PICTURE '..\BITMAP\TOOLBAR\PREV.BMP'
+On Selection Bar 7 Of View _screen.activeForm.OnPrev()
+ENDIF
+IF POPUP('VIEW') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("VIEW_NEXT")
+
+Define Bar 8 Of View PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMNEXT,MEN_PRMNEXT) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('EDIT_NEXT')) FONT [Arial],8 KEY CTRL+DNARROW, IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBCTRLDNARROW, MEN_KLBCTRLDNARROW) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBGOTOTHENEXTRECORD,MEN_STBGOTOTHENEXTRECORD) PICTURE '..\BITMAP\TOOLBAR\NEXT.BMP'
+On Selection Bar 8 Of View _screen.activeForm.OnNext()
+ENDIF
+IF POPUP('VIEW') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("VIEW_BOTTOM")
+
+Define Bar 9 Of View PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMBOTTOM,MEN_PRMBOTTOM) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('EDIT_BOTTOM')) FONT [Arial],8 KEY CTRL+END, IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBCTRLEND, MEN_KLBCTRLEND) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBGOTOTHELASTRECORD,MEN_STBGOTOTHELASTRECORD) PICTURE '..\BITMAP\TOOLBAR\BOTTOM.BMP'
+On Selection Bar 9 Of View _screen.activeForm.OnBottom()
+ENDIF
+IF TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("FAVORITES")
+
+Define Pad FAVORITES Of _MSYSMENU PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMFAVORITES,MEN_PRMFAVORITES) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FAVORITES')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBOPENSORMANAGESFAVORITES,MEN_STBOPENSORMANAGESFAVORITES)
+Define Popup FAVORITES FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBOPENSORMANAGESFAVORITES,MEN_STBOPENSORMANAGESFAVORITES) MARGIN RELATIVE SHORTCUT
+ON PAD FAVORITES OF _MSYSMENU ACTIVATE POPUP FAVORITES
+ENDIF
+IF POPUP('FAVORITES') AND TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("FAVORITES_ADD")
+
+Define Bar 1 Of FAVORITES PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMADDTOFAVORITES,MEN_PRMADDTOFAVORITES) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FAVORITES_ADD')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBADDTHECURRENTRECORDTOTHEFAVORITES,MEN_STBADDTHECURRENTRECORDTOTHEFAVORITES) PICTURE '..\BITMAP\TOOLBAR\ADDTO.BMP'
+On Selection Bar 1 Of FAVORITES addtofavorite()
+ENDIF
+IF POPUP('FAVORITES') AND TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("FAVORITES_MANAGE")
+
+Define Bar 2 Of FAVORITES PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMMANAGEFAVORITES,MEN_PRMMANAGEFAVORITES) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('FAV_MANAGE') OR (empty(goProgram.aFavorites) and ALEN(goprogram.afavorites,1)=1)) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBMANAGETHEFAVORITES,MEN_STBMANAGETHEFAVORITES) PICTURE '..\BITMAP\TOOLBAR\MANAGEFAVORITES.BMP'
+On Selection Bar 2 Of FAVORITES runmanagefavorites()
+ENDIF
+IF POPUP('FAVORITES')
+
+Define Bar 3 Of FAVORITES PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRM,MEN_PRM) FONT [Arial],8
+ENDIF
+IF TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("TOOLS_MENUPAD")
+
+
+lcMEN_KLBALTT=IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTT, MEN_KLBALTT)
+lcMEN_KLBALTT=[ALT]+SUBSTR(lcMEN_KLBALTT,AT([+],lcMEN_KLBALTT))
+Define Pad TOOLS Of _MSYSMENU PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMTOOLS,MEN_PRMTOOLS) FONT [Arial],8 KEY &lcMEN_KLBALTT., IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTT, MEN_KLBALTT) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBSETSOPTIONSORRUNSTOOLS,MEN_STBSETSOPTIONSORRUNSTOOLS)
+
+lcMEN_KLBALTT=IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTT, MEN_KLBALTT)
+lcMEN_KLBALTT=[ALT]+SUBSTR(lcMEN_KLBALTT,AT([+],lcMEN_KLBALTT))
+Define Popup TOOLS FONT [Arial],8 KEY &lcMEN_KLBALTT., IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTT, MEN_KLBALTT) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBSETSOPTIONSORRUNSTOOLS,MEN_STBSETSOPTIONSORRUNSTOOLS) MARGIN RELATIVE SHORTCUT
+ON PAD TOOLS OF _MSYSMENU ACTIVATE POPUP TOOLS
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("TOOLS_USERSLIST")
+
+Define Bar 1 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMUSERLIST,MEN_PRMUSERLIST) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_USERLIST')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBEDITTHEUSERDATA,MEN_STBEDITTHEUSERDATA)
+On Selection Bar 1 Of TOOLS goProgram.RunForm('VFXUSER')
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("TOOLS_USERGROUPS")
+
+Define Bar 2 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMUSERGROUPS,MEN_PRMUSERGROUPS) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_USERGROUPS')) FONT [Arial],8
+On Selection Bar 2 Of TOOLS goProgram.RunForm('VFXUSERGROUPS')
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("TOOLS_USERRIGHTS")
+
+Define Bar 3 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMUSERRIGHTS,MEN_PRMUSERRIGHTS) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_USERRIGHTS')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBEDITTHEUSERRIGHTS,MEN_STBEDITTHEUSERRIGHTS)
+On Selection Bar 3 Of TOOLS goProgram.RunForm('VFXRIGHT')
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("TOOLS_USERSSTATUS"))
+
+Define Bar 4 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMUSERSSTATUS,MEN_PRMUSERSSTATUS) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.onskipmenu('TOOLS_USERSSTATUS')) FONT [Arial],8
+On Selection Bar 4 Of TOOLS goProgram.RunForm('vfxUsersStatus')
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("TOOLS_RELOGIN")
+
+Define Bar 5 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMLOGIN,MEN_PRMLOGIN) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_LOGIN')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBLOGINWHILETHEAPPLICATIONISRUNNING,MEN_STBLOGINWHILETHEAPPLICATIONISRUNNING) PICTURE '..\BITMAP\TOOLBAR\LOGIN.BMP'
+On Selection Bar 5 Of TOOLS goProgram.ReLogon()
+ENDIF
+IF POPUP('TOOLS')
+
+Define Bar 6 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRM,MEN_PRM) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBDATABASE,MEN_STBDATABASE)
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("TOOLS_DATABASE"))
+
+Define Bar 7 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMDATABASE,MEN_PRMDATABASE) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_DATABASE')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBDATABASEMAINTENANCE,MEN_STBDATABASEMAINTENANCE) PICTURE '..\BITMAP\TOOLBAR\DATABASE.BMP'
+On Selection Bar 7 Of TOOLS goProgram.RunForm('VFXDBFUN')
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("TOOLS_AUDIT")
+	
+Define Bar 8 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMAUDIT,MEN_PRMAUDIT) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_AUDITTRAIL') OR TYPE('_Screen.ActiveForm.lAudit') <> 'L') FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBAUDIT,MEN_STBAUDIT) PICTURE '..\BITMAP\TOOLBAR\AUDIT.BMP'
+Define Popup AUDIT FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBAUDIT,MEN_STBAUDIT) MARGIN RELATIVE SHORTCUT
+ON BAR 8 Of TOOLS ACTIVATE Popup AUDIT
+ENDIF
+IF POPUP('AUDIT')
+
+Define Bar 1 Of AUDIT PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMAUDITTRAIL,MEN_PRMAUDITTRAIL) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBAUDITTRAIL,MEN_STBAUDITTRAIL) PICTURE '..\BITMAP\TOOLBAR\AUDIT.BMP'
+On Selection Bar 1 Of AUDIT _screen.activeform.onaudit()
+ENDIF
+IF POPUP('AUDIT')
+
+Define Bar 2 Of AUDIT PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMAUDITINFORMATION,MEN_PRMAUDITINFORMATION) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBAUDITINFORMATION,MEN_STBAUDITINFORMATION)
+On Selection Bar 2 Of AUDIT goProgram.runform('VFXAUDITINFO')
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("TOOLS_ERRORS")
+
+Define Bar 9 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMSYSTEMERRORS,MEN_PRMSYSTEMERRORS) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_SYSTEMERRORS')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBSYSTEMERRORS,MEN_STBSYSTEMERRORS)
+On Selection Bar 9 Of TOOLS goProgram.RunForm('VFXLOG')
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND goProgram.IsMenuItemAllowed("TOOLS_LOCKS")
+
+Define Bar 10 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMSYSTEMLOCKS,MEN_PRMSYSTEMLOCKS) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_SYSTEMLOCKS')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBCURRENTLYLOCKEDTABLESANDRECORDS,MEN_STBCURRENTLYLOCKEDTABLESANDRECORDS)
+On Selection Bar 10 Of TOOLS goProgram.RunForm('VFXLOCK')
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("TOOLS_PRINTSCREEN"))
+
+Define Bar 11 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRM,MEN_PRM) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBPRINTSCREEN,MEN_STBPRINTSCREEN)
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("TOOLS_PRINTSCREEN"))
+	
+Define Bar 12 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMPRINTSCREEN,MEN_PRMPRINTSCREEN) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_PRINTSCREEN')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBPRINTASCREENSHOT,MEN_STBPRINTASCREENSHOT) PICTURE '..\BITMAP\TOOLBAR\PRNSCR.BMP'
+Define Popup printscreen FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBPRINTASCREENSHOT,MEN_STBPRINTASCREENSHOT) MARGIN RELATIVE SHORTCUT
+ON BAR 12 Of TOOLS ACTIVATE Popup printscreen
+ENDIF
+IF POPUP('PRINTSCREEN') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("TOOLS_FULLSCREENSHOT"))
+
+Define Bar 1 Of printscreen PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMFULLSCREENSHOT,MEN_PRMFULLSCREENSHOT) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_FULLSCREENSHOT')) FONT [Arial],8
+On Selection Bar 1 Of printscreen goProgram.printscreen()
+ENDIF
+IF POPUP('PRINTSCREEN') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("TOOLS_ACTIVEFORMSCREENSHOT"))
+
+Define Bar 2 Of printscreen PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMACTIVEFORMSCREENSHOT,MEN_PRMACTIVEFORMSCREENSHOT) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_ACTIVEFORMSCREENSHOT')) FONT [Arial],8
+On Selection Bar 2 Of printscreen goProgram.printscreen(.T.)
+ENDIF
+IF POPUP('TOOLS')
+
+Define Bar 13 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRM,MEN_PRM) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBOPTIONS,MEN_STBOPTIONS)
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("TOOLS_MANAGECONFIGVFX"))
+
+Define Bar 14 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMMANAGECONFIGVFX,MEN_PRMMANAGECONFIGVFX) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_MANAGECONFIGVFX')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBMANAGECONFIGVFX,MEN_STBMANAGECONFIGVFX)
+On Selection Bar 14 Of TOOLS goProgram.RunForm('vfxclientdataaccess')
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("TOOLS_MANAGEPICKLISTS"))
+
+Define Bar 15 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMMANAGEPICKLISTS,MEN_PRMMANAGEPICKLISTS) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_MANAGEPICKLISTS')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBMANAGEPICKLISTS,MEN_STBMANAGEPICKLISTS)
+On Selection Bar 15 Of TOOLS goProgram.RunForm('vfxplist')
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("TOOLS_ADDTOTASKLIST"))
+
+Define Bar 16 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMADDTOTASKLIST,MEN_PRMADDTOTASKLIST) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_ADDTOTASKLIST')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBADDTOTASKLIST,MEN_STBADDTOTASKLIST)
+On Selection Bar 16 Of TOOLS addtofavorite(.T.)
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("TOOLS_TASKLIST"))
+
+Define Bar 17 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMTASKLIST,MEN_PRMTASKLIST) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_TASKLIST')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBTASKLIST,MEN_STBTASKLIST) PICTRES _mti_tasklist
+On Selection Bar 17 Of TOOLS goProgram.runForm('vfxTaskList')
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("TOOLS_TOOLBOX")
+
+Define Bar 18 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMTOOLBOX,MEN_PRMTOOLBOX) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_TOOLBOX')) FONT [Arial],8 PICTURE '..\BITMAP\TOOLBOX\TOOLBOX.ICO'
+On Selection Bar 18 Of TOOLS goProgram.runForm('vfxToolbox')
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("TOOLS_INTELLISENSE"))
+
+Define Bar 19 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMINTELLISENSETABLEEDITOR,MEN_PRMINTELLISENSETABLEEDITOR) FONT [Arial],8 PICTRES _mti_foxcode
+On Selection Bar 19 Of TOOLS goProgram.runForm('vfxIntellisenseTableEditor')
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("TOOLS_BACKUP")
+	
+Define Bar 20 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMBACKUP,MEN_PRMBACKUP) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_BACKUP') OR (TYPE('GoUser.userlevel')='N' AND GoUser.userlevel>1)) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBCREATESBACKUPORRESTORESFROMBACKUPARCHIVE,MEN_STBCREATESBACKUPORRESTORESFROMBACKUPARCHIVE)
+Define Popup MEN_BACKUP FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBCREATESBACKUPORRESTORESFROMBACKUPARCHIVE,MEN_STBCREATESBACKUPORRESTORESFROMBACKUPARCHIVE) MARGIN RELATIVE SHORTCUT
+ON BAR 20 Of TOOLS ACTIVATE Popup MEN_BACKUP
+ENDIF
+IF POPUP('MEN_BACKUP') AND TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("TOOLS_BACKUP")
+
+Define Bar 1 Of MEN_BACKUP PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMCRATEBACKUPARCHIVE,MEN_PRMCRATEBACKUPARCHIVE) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBCEATESBACKUPZIPARCHIVEOFYOURDATA,MEN_STBCEATESBACKUPZIPARCHIVEOFYOURDATA) PICTURE '..\BITMAP\TOOLBAR\ZIP.BMP'
+On Selection Bar 1 Of MEN_BACKUP BackUp(1, IIF(TYPE('goProgram.Class') == 'C', GoProgram.lShowGetDirForZip, .F.))
+ENDIF
+IF POPUP('MEN_BACKUP') AND TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("TOOLS_BACKUP")
+
+Define Bar 2 Of MEN_BACKUP PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMRESTOREFROMBACKUP,MEN_PRMRESTOREFROMBACKUP) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBRESTORESDATAFROMABACKUPZIPARCHIVE,MEN_STBRESTORESDATAFROMABACKUPZIPARCHIVE) PICTURE '..\BITMAP\TOOLBAR\UNZIP.BMP'
+On Selection Bar 2 Of MEN_BACKUP BackUp(2)
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("TOOLS_MODIREPO"))
+
+Define Bar 21 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMMODIFYREPORT,MEN_PRMMODIFYREPORT) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_MODIREPO')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBSTARTVFXMODIFYREPORTEXE,MEN_STBSTARTVFXMODIFYREPORTEXE) PICTRES _mwz_reprt
+On Selection Bar 21 Of TOOLS ; 
+DO _4L70X81EJ IN vfxmenu.prg
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("TOOLS_DATAEXPLORER"))
+
+Define Bar 22 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMDATAEXPLORER,MEN_PRMDATAEXPLORER) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_DATAEXPLORER')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBSTARTVFXDATAEXPLOREREXE,MEN_STBSTARTVFXDATAEXPLOREREXE) PICTURE '..\BITMAP\TOOLBAR\DATABASE.BMP'
+On Selection Bar 22 Of TOOLS DoVfxDataExplorer()
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("TOOLS_LOGINIPADDRESSES"))
+
+Define Bar 23 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMLOGINIPADDRESSES,MEN_PRMLOGINIPADDRESSES) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_LOGINIPADDRESSES')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBLOGINIPADDRESSES,MEN_STBLOGINIPADDRESSES)
+On Selection Bar 23 Of TOOLS goProgram.RunForm('vfxipaddresses')
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("TOOLS_COMMANDCONSOLE"))
+
+Define Bar 24 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMCOMMANDCONSOLE,MEN_PRMCOMMANDCONSOLE) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_COMMANDCONSOLE')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBCOMMANDCONSOLE,MEN_STBCOMMANDCONSOLE) PICTRES _mwi_cmd
+On Selection Bar 24 Of TOOLS goProgram.RunForm('vfxcommandconsole')
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("TOOLS_CUSTOMIZE"))
+
+Define Bar 25 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMCUSTOMIZE,MEN_PRMCUSTOMIZE) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_CUSTOMIZE')) FONT [Arial],8
+On Selection Bar 25 Of TOOLS goProgram.RunForm('vfxcustomize')
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("TOOLS_OPTIONS"))
+
+Define Bar 26 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMOPTIONS,MEN_PRMOPTIONS) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_OPTIONS')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBCHANGESSYSTEMPARAMETERS,MEN_STBCHANGESSYSTEMPARAMETERS) PICTRES _mtl_optns
+On Selection Bar 26 Of TOOLS goProgram.RunForm('VFXSYS')
+ENDIF
+IF POPUP('TOOLS') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("TOOLS_MANAGECOUNTRY"))
+
+Define Bar 27 Of TOOLS PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMCOUNTRYMANAGEMENT,MEN_PRMCOUNTRYMANAGEMENT) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('TOOLS_MANAGECOUNTRY')) FONT [Arial],8
+On Selection Bar 27 Of TOOLS goProgram.RunForm('vfxcountry')
+ENDIF
+IF TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("WINDOW")
+
+
+lcMEN_KLBALTW=IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTW, MEN_KLBALTW)
+lcMEN_KLBALTW=[ALT]+SUBSTR(lcMEN_KLBALTW,AT([+],lcMEN_KLBALTW))
+Define Pad WINDOW Of _MSYSMENU PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMWINDOW,MEN_PRMWINDOW) FONT [Arial],8 KEY &lcMEN_KLBALTW., IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTW, MEN_KLBALTW) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBARRANGEWINDOWS,MEN_STBARRANGEWINDOWS)
+
+lcMEN_KLBALTW=IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTW, MEN_KLBALTW)
+lcMEN_KLBALTW=[ALT]+SUBSTR(lcMEN_KLBALTW,AT([+],lcMEN_KLBALTW))
+Define Popup WINDOW FONT [Arial],8 KEY &lcMEN_KLBALTW., IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTW, MEN_KLBALTW) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBARRANGEWINDOWS,MEN_STBARRANGEWINDOWS) MARGIN RELATIVE SHORTCUT
+ON PAD WINDOW OF _MSYSMENU ACTIVATE POPUP WINDOW
+ENDIF
+IF POPUP('WINDOW') AND TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("WINDOW_CASCADE")
+
+Define Bar _MWI_CASCADE Of WINDOW PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMCASCADE,MEN_PRMCASCADE) FONT [Arial],8 PICTURE '..\BITMAP\TOOLBAR\CASCADE.BMP'
+ENDIF
+IF POPUP('WINDOW') AND TYPE("goProgram.Class") == "C" AND  goProgram.IsMenuItemAllowed("WINDOW_ARRANGEALL")
+
+Define Bar _MWI_ARRAN Of WINDOW PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMARRANGEALL,MEN_PRMARRANGEALL) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBARRANGESWINDOWSASNONOVERLAPPINGTILES,MEN_STBARRANGESWINDOWSASNONOVERLAPPINGTILES) PICTURE '..\BITMAP\TOOLBAR\ARRANGEALL.BMP'
+ENDIF
+
+
+lcMEN_KLBALTH=IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTH, MEN_KLBALTH)
+lcMEN_KLBALTH=[ALT]+SUBSTR(lcMEN_KLBALTH,AT([+],lcMEN_KLBALTH))
+Define Pad Help Of _MSYSMENU PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMHELP,MEN_PRMHELP) FONT [Arial],8 KEY &lcMEN_KLBALTH., IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTH, MEN_KLBALTH) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBDISPLAYSHELPONTHISPROGRAM,MEN_STBDISPLAYSHELPONTHISPROGRAM)
+
+lcMEN_KLBALTH=IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTH, MEN_KLBALTH)
+lcMEN_KLBALTH=[ALT]+SUBSTR(lcMEN_KLBALTH,AT([+],lcMEN_KLBALTH))
+Define Popup Help FONT [Arial],8 KEY &lcMEN_KLBALTH., IIF(goProgram.lruntimelocalization, goLocalize.cMEN_KLBALTH, MEN_KLBALTH) MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBDISPLAYSHELPONTHISPROGRAM,MEN_STBDISPLAYSHELPONTHISPROGRAM) MARGIN RELATIVE SHORTCUT
+ON PAD Help OF _MSYSMENU ACTIVATE POPUP Help
+IF POPUP('HELP') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("HELP_CONTENT"))
+
+Define Bar _MST_HPSCH Of Help PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMCONTENTS,MEN_PRMCONTENTS) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('HELP_CONTENTS')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBDISPLAYSHELPTABLEOFCONTENTS,MEN_STBDISPLAYSHELPTABLEOFCONTENTS) PICTURE '..\BITMAP\TOOLBAR\HELP.BMP'
+On Selection Bar _MST_HPSCH Of Help =ContextHelp()
+ENDIF
+IF POPUP('HELP') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("HELP_SEARCHFORHELPON"))
+
+Define Bar _MST_HELP Of Help PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMSEARCHFORHELPON,MEN_PRMSEARCHFORHELPON) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('HELP_SEARCHFORHELP')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBSEARCHESFORHELPTOPICSBYKEYWORD,MEN_STBSEARCHESFORHELPTOPICSBYKEYWORD) PICTURE '..\BITMAP\TOOLBAR\SEARCHFORHELP.BMP'
+ENDIF
+IF POPUP('HELP') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("HELP_WEBSITEURL") OR goProgram.IsMenuItemAllowed("HELP_CONTACTUS"))
+
+Define Bar 3 Of Help PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRM,MEN_PRM) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBABOUTUS,MEN_STBABOUTUS)
+ENDIF
+IF POPUP('HELP') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("HELP_WEBSITEURL"))
+
+Define Bar 4 Of Help PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMVISITOURWEBSITE,MEN_PRMVISITOURWEBSITE) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('HELP_WEBSITEURL')) FONT [Arial],8
+On Selection Bar 4 Of Help ; 
+DO _4L70X81EK IN vfxmenu.prg
+ENDIF
+IF POPUP('HELP') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("HELP_CONTACTUS"))
+
+Define Bar 5 Of Help PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMCONTACTUS,MEN_PRMCONTACTUS) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.onSkipMenu('HELP_CONTACTUS')) FONT [Arial],8 PICTURE '..\BITMAP\CONTACT.BMP'
+On Selection Bar 5 Of Help ContactUS()
+ENDIF
+IF POPUP('HELP')
+
+Define Bar 6 Of Help PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRM,MEN_PRM) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBSUPPORT,MEN_STBSUPPORT)
+ENDIF
+IF POPUP('HELP') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("HELP_USERFEEDBACK"))
+
+Define Bar 7 Of Help PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMUSERFEEDBACK,MEN_PRMUSERFEEDBACK) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('HELP_USERFEEDBACK')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBSENDFEEDBACK,MEN_STBSENDFEEDBACK)
+On Selection Bar 7 Of Help goprogram.runform('vfxuserfeedback')
+ENDIF
+IF POPUP('HELP') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("HELP_REMOTECONTROL"))
+
+Define Bar 8 Of Help PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMREMOTECONTROL,MEN_PRMREMOTECONTROL) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('HELP_REMOTECONTROL')) FONT [Arial],8
+On Selection Bar 8 Of Help goProgram.RemoteAdministration()
+ENDIF
+IF POPUP('HELP') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("HELP_UPDATE") OR goProgram.IsMenuItemAllowed("HELP_REGISTER"))
+
+Define Bar 9 Of Help PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRM,MEN_PRM) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBUPDATE,MEN_STBUPDATE)
+ENDIF
+IF POPUP('HELP') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("HELP_UPDATE"))
+
+Define Bar 10 Of Help PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMAPPLICATIONUPDATE,MEN_PRMAPPLICATIONUPDATE) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.onSkipMenu('HELP_UPDATE')) FONT [Arial],8 PICTURE '..\BITMAP\TOOLBAR\APPLICATIONUPDATE.BMP'
+On Selection Bar 10 Of Help ; 
+DO _4L70X81EL IN vfxmenu.prg
+ENDIF
+IF POPUP('HELP') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("HELP_UPDATE"))
+
+Define Bar 11 Of Help PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMUPDATESETTINGS,MEN_PRMUPDATESETTINGS) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.onSkipMenu('HELP_UPDATE')) FONT [Arial],8
+On Selection Bar 11 Of Help goProgram.RunForm('VFXUPDATE')
+ENDIF
+IF POPUP('HELP') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("HELP_REGISTER"))
+
+Define Bar 12 Of Help PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMREGISTER,MEN_PRMREGISTER) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('HELP_REGISTER')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBOPENSREGISTERFORMTOACTIVATEYOURAPPLICATION,MEN_STBOPENSREGISTERFORMTOACTIVATEYOURAPPLICATION)
+On Selection Bar 12 Of Help goprogram.runform('vfxregister')
+ENDIF
+IF POPUP('HELP') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("HELP_ABOUT"))
+
+Define Bar 13 Of Help PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRM,MEN_PRM) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBABOUT,MEN_STBABOUT)
+ENDIF
+IF POPUP('HELP') AND TYPE("goProgram.Class") == "C" AND (goProgram.IsMenuItemAllowed("HELP_ABOUT"))
+
+Define Bar 14 Of Help PROMPT IIF(goProgram.lruntimelocalization, goLocalize.cMEN_PRMABOUT,MEN_PRMABOUT) SKIP FOR TYPE('goProgram.Class') == 'C' AND (goProgram.OnSkipMenu('HELP_ABOUT')) FONT [Arial],8 MESSAGE IIF(goProgram.lruntimelocalization, goLocalize.cMEN_STBDISPLAYSINFORMATIONABOUTTHISPROGRAMANDTHESYSTEMCONFIGURAT,MEN_STBDISPLAYSINFORMATIONABOUTTHISPROGRAMANDTHESYSTEMCONFIGURAT) PICTRES _mst_about
+On Selection Bar 14 Of Help goProgram.RunForm('VFXABOUT')
+ENDIF
+
+Procedure _4L70X81DW
+IF TYPE("_screen.ActiveForm")=="O" 
+	IF PEMSTATUS(_screen.ActiveForm,"QueryUnload",5)
+		IF _screen.ActiveForm.QueryUnload()
+		    _screen.ActiveForm.Release()
+		ENDIF		    
+	ELSE
+	    release _screen.ActiveForm
+	ENDIF
+ENDIF
+Procedure _4L70X81DX
+IF OS(5) > "7000"
+	TRY
+		SET PRINTER TO GETPRINTER()
+	CATCH
+	ENDTRY
+ENDIF
+TRY
+	=SYS(1037)
+CATCH
+ENDTRY
+Procedure _4L70X81DY
+IF TYPE("_screen.ActiveForm.lEmpty") <> "U"
+	_screen.ActiveForm.OnPrint()
+ENDIF	
+Procedure _4L70X81DZ
+IF TYPE("_screen.ActiveForm.lEmpty") <> "U"
+	_screen.ActiveForm.OnPrint(.T.)
+ENDIF	
+Procedure _4L70X81E0
+IF TYPE("_screen.ActiveForm.lEmpty") <> "U"
+	_screen.ActiveForm.OnPrint(1) && e-mail attach PDF
+ENDIF
+Procedure _4L70X81E1
+IF TYPE("_screen.ActiveForm.lEmpty") <> "U"
+	_screen.ActiveForm.OnPrint(11) && e-mail attach HTML
+ENDIF
+Procedure _4L70X81E2
+IF TYPE("_screen.ActiveForm.lEmpty") <> "U"
+	_screen.ActiveForm.OnPrint(12) && e-mail attach XML
+ENDIF
+Procedure _4L70X81E3
+IF TYPE("_screen.ActiveForm.lEmpty") <> "U"
+	_screen.ActiveForm.OnPrint(13) && e-mail attach TIFF
+ENDIF
+Procedure _4L70X81E4
+IF TYPE("_screen.ActiveForm.lEmpty") <> "U"
+	_screen.ActiveForm.OnPrint(14) && e-mail attach BMP
+ENDIF
+Procedure _4L70X81E5
+IF TYPE("_screen.ActiveForm.lEmpty") <> "U"
+	_screen.ActiveForm.OnPrint(19) && e-mail attach CSV
+ENDIF
+Procedure _4L70X81E6
+IF TYPE("_screen.ActiveForm.lEmpty") <> "U"
+	_screen.ActiveForm.OnPrint(20) && e-mail attach Excel
+ENDIF
+Procedure _4L70X81E7
+IF TYPE("_screen.ActiveForm.lEmpty") <> "U"
+	_screen.ActiveForm.OnPrint(21) && e-mail attach DBF
+ENDIF
+Procedure _4L70X81E8
+IF TYPE("_screen.ActiveForm.lEmpty") <> "U"
+	_screen.ActiveForm.OnPrint(3) && Fax
+ENDIF
+Procedure _4L70X81E9
+IF TYPE("_screen.ActiveForm.lEmpty") <> "U"
+	_screen.ActiveForm.OnPrint(2) && PDF
+ENDIF
+Procedure _4L70X81EA
+IF TYPE("_screen.ActiveForm.lEmpty") <> "U"
+	_screen.ActiveForm.OnPrint(6) && HTML
+ENDIF
+Procedure _4L70X81EB
+IF TYPE("_screen.ActiveForm.lEmpty") <> "U"
+	_screen.ActiveForm.OnPrint(7) && XML
+ENDIF
+Procedure _4L70X81EC
+IF TYPE("_screen.ActiveForm.lEmpty") <> "U"
+	_screen.ActiveForm.OnPrint(8) && TIFF
+ENDIF
+Procedure _4L70X81ED
+IF TYPE("_screen.ActiveForm.lEmpty") <> "U"
+	_screen.ActiveForm.OnPrint(9) && BMP
+ENDIF
+Procedure _4L70X81EE
+IF TYPE("_screen.ActiveForm.lEmpty") <> "U"
+	_screen.ActiveForm.OnPrint(15) && CSV
+ENDIF	
+Procedure _4L70X81EF
+IF TYPE("_screen.ActiveForm.lEmpty") <> "U"
+	_screen.ActiveForm.OnPrint(16) && Excel
+ENDIF
+Procedure _4L70X81EG
+IF TYPE("_screen.ActiveForm.lEmpty") <> "U"
+	_screen.ActiveForm.OnPrint(17) && XML
+ENDIF	
+Procedure _4L70X81EH
+IF TYPE("_screen.ActiveForm.lEmpty") <> "U"
+	_screen.ActiveForm.OnPrint(18) && DBF
+ENDIF	
+Procedure _4L70X81EI
+IF PEMSTATUS(_Screen.ActiveForm, "OnRefresh" ,5)
+	_Screen.ActiveForm.OnRefresh(.F.,.T.)
+ENDIF
+Procedure _4L70X81EJ
+DECLARE INTEGER ShellExecute IN SHELL32.DLL  ;
+		INTEGER nWinHandle, ;
+		STRING cOperation, ;
+		STRING cFileName, ;
+		STRING cParameters, ;
+		STRING cDirectory, ;
+		INTEGER nShowWindow
+lcExeFile = FULLPATH("vfxmodifyreport.exe")
+IF goProgram.lRuntimeLocalization
+	lcAppCaption = ALLTRIM(goLocalize.cCAP_APPLICATION_TITLE) 
+ELSE
+	lcAppCaption = ALLTRIM(CAP_APPLICATION_TITLE)
+ENDIF 
+shellexecute(0,"open",lcExeFile,goProgram.cLangID+[ "]+lcAppCaption+["],"",1)
+Procedure _4L70X81EK
+LOCAL loHyperLink as HyperLink
+
+IF TYPE("goProgram.cCompanyWebSiteURL") = "C" AND !EMPTY(goProgram.cCompanyWebSiteURL)
+	loHyperLink = NEWOBJECT("HyperLink")
+	loHyperLink.NavigateTo(goProgram.cCompanyWebSiteURL)
+	loHyperLink = .Null.
+	RELEASE loHyperLink
+ENDIF
+Procedure _4L70X81EL
+loUpdate = NEWOBJECT("cAppUpdateEngine")
+loUpdate.startupdate(1)
+RELEASE loUpdate

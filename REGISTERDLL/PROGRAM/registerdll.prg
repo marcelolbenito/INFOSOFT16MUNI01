@@ -1,0 +1,3 @@
+DEFINE CLASS cRegisterDLL As cRegDll OLEPUBLIC 
+	
+ENDDEFINE 

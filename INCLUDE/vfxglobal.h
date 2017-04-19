@@ -1,0 +1,24 @@
+#define gu_user goUser.user
+#define gu_password goUser.password
+#define gu_user_name goUser.user_name
+#define gu_userlevel goUser.userlevel
+#define gu_useraccess goUser.useraccess
+#define gu_firstview goUser.firstview
+#define gu_lastsel goUser.lastsel
+#define gu_formsize goUser.formsize
+#define gu_agent goUser.agent
+#define gu_favorites goUser.favorites
+#define gu_email goUser.email
+#define gu_chpassall goUser.chpassall
+#define gu_chpassnext goUser.chpassnext
+#define gu_language goUser.language
+
+#define gs_magic_id goSystem.magic_id
+#define gs_install_gs goSystem.install_gs
+#define gs_dunconnpar goSystem.dunconnpar
+#define gs_updateapp goSystem.updateapp
+#define gs_archpath goSystem.archpath
+#define gs_install_ar goSystem.install_ar
+#define gs_dyndns goSystem.dyndns
+#define gs_inst_click goSystem.inst_click
+#define gs_install_qr goSystem.install_qr

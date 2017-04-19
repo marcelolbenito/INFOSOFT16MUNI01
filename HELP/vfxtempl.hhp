@@ -1,0 +1,22 @@
+[OPTIONS]
+Compiled file=VFX.chm
+Contents file=Contents.hhc
+Default Window=Standard
+Default topic=Start.htm
+Display compile progress=Yes
+Full-text search=Yes
+Index file=Index.hhk
+Language=0x407 Deutsch (Standard)
+Title=VFX
+
+[WINDOWS]
+Standard="VFX","contents.hhc","index.hhk","start.htm","start.htm",,,,,0x2420,180,0x384e,[20,75,720,575],0xb0000,,,0,,,
+
+[FILES]
+#FILES#
+
+[ALIAS]
+#ALIAS#
+
+[MAP]
+#include Context.h
